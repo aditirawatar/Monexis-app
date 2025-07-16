@@ -5,6 +5,8 @@ import Signup from "./pages/auth/SignUp";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Transaction from "./pages/Dashboard/Transaction";
 import FinancialAnalysis from "./pages/Dashboard/FinancialAnalysis";
+import Sidebar from "./pages/Dashboard/Sidebar";
+
 function App() {
   return (
      <Router>
@@ -15,6 +17,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/transactions" element={<Transaction />} />
         <Route path="/analysis" element={<FinancialAnalysis />} />
+        <Route path="/Sidebar" element={<Sidebar />} />
       </Routes>
     </Router>
   );

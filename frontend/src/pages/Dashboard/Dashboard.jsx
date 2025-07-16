@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import PlaidLinkButton from "../../components/PlaidLinkButton";
-import Sidebar from "./SideBar";
+import Sidebar from "./Sidebar";
 import DonutChart from "../../components/DonutChart";
 
 const Dashboard = () => {
