@@ -8,7 +8,7 @@ const Transaction = () => {
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/plaid/transactions");
+       const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/plaid/transactions`);
         setTransactions(res.data.transactions);
       } catch (error) {
         console.error("Failed to fetch transactions", error);

@@ -8,7 +8,7 @@ const PlaidLinkButton = ({ onTransactionsFetched }) => {
   React.useEffect(() => {
     const createLinkToken = async () => {
       try {
-        const response = await axios.post("http://localhost:5000/api/plaid/create-link-token");
+        const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/plaid/create-link-token`);
         setLinkToken(response.data.link_token);
       } catch (error) {
         console.error("Failed to create link token", error);
@@ -19,16 +19,11 @@ const PlaidLinkButton = ({ onTransactionsFetched }) => {
 
   const onSuccess = async (public_token) => {
     try {
-      // Step 1: Exchange token
-      await axios.post("http://localhost:5000/api/plaid/exchange-public-token", {
-        public_token,
-      });
+      // Exchange token
+      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/plaid/exchange-public-token`, { public_token });
+      await new Promise((resolve) => setTimeout(resolve, 1000)); 
 
-      // 🟢 Wait a short time to ensure backend has access token stored
-      await new Promise((resolve) => setTimeout(resolve, 1000)); // 1 second delay
-
-      // Step 2: Fetch transactions
-      const transactionsResponse = await axios.get("http://localhost:5000/api/plaid/transactions");
+      const transactionsResponse = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/plaid/transactions`);
       onTransactionsFetched(transactionsResponse.data.transactions);
     } catch (error) {
       console.error("Failed to exchange token or fetch transactions", error);

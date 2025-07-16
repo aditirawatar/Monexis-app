@@ -11,7 +11,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchTxns = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/plaid/transactions");
+       const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/plaid/transactions`);
         setTransactions(response.data.transactions);
       } catch (error) {
         console.error("Failed to fetch transactions", error);
