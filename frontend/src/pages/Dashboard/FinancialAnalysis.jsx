@@ -3,7 +3,7 @@ import axios from "axios";
 import Sidebar from "./SideBar";
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
-  BarChart, Bar
+  BarChart, Bar, ResponsiveContainer
 } from "recharts";
 
 const FinancialAnalysis = () => {
@@ -60,7 +60,7 @@ const FinancialAnalysis = () => {
     }
   };
 
-  // Example bar data by category
+  // Example category data
   const barData = [
     { name: "Food", amount: 1200 },
     { name: "Shopping", amount: 800 },
@@ -73,45 +73,54 @@ const FinancialAnalysis = () => {
       <Sidebar />
 
       <div className="flex-1 p-6">
-        <h2 className="text-2xl font-bold mb-6 text-blue-400">Financial Analysis</h2>
+        <h2 className="text-2xl mt-7 font-bold mb-6 text-blue-400">Financial Analysis</h2>
 
         {/* Line Chart */}
         <div className="bg-gray-800 p-4 rounded-lg mb-8 shadow hover:shadow-lg hover:shadow-blue-500/50 transition">
           <h3 className="text-lg font-semibold mb-4 text-blue-300">Transaction Trends</h3>
-          <LineChart width={600} height={300} data={transactions.slice(0, 7)}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#444" />
-            <XAxis dataKey="date" stroke="#ccc" />
-            <YAxis stroke="#ccc" />
-            <Tooltip contentStyle={{ backgroundColor: "#1f2937", borderColor: "#3b82f6" }} />
-            <Legend />
-            <Line type="monotone" dataKey="amount" stroke="#3b82f6" strokeWidth={2} />
-          </LineChart>
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart data={transactions.slice(0, 7)}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#444" />
+              <XAxis dataKey="date" stroke="#ccc" />
+              <YAxis stroke="#ccc" />
+              <Tooltip contentStyle={{ backgroundColor: "#1f2937", borderColor: "#3b82f6" }} />
+              <Legend />
+              <Line type="monotone" dataKey="amount" stroke="#3b82f6" strokeWidth={2} />
+            </LineChart>
+          </ResponsiveContainer>
         </div>
 
-        {/* Category Bar Chart */}
-        <div className="bg-gray-800 p-4 rounded-lg mb-8 shadow hover:shadow-lg hover:shadow-blue-500/50 transition">
-          <h3 className="text-lg font-semibold mb-4 text-blue-300">Spending by Category</h3>
-          <BarChart width={600} height={300} data={barData}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#444" />
-            <XAxis dataKey="name" stroke="#ccc" />
-            <YAxis stroke="#ccc" />
-            <Tooltip contentStyle={{ backgroundColor: "#1f2937", borderColor: "#3b82f6" }} />
-            <Legend />
-            <Bar dataKey="amount" fill="#3b82f6" />
-          </BarChart>
-        </div>
+        {/* Flex container for two bar charts side by side */}
+        <div className="flex flex-col lg:flex-row gap-6">
+          {/* Category Bar Chart */}
+          <div className="flex-1 bg-gray-800 p-4 rounded-lg shadow hover:shadow-lg hover:shadow-blue-500/50 transition">
+            <h3 className="text-lg font-semibold mb-4 text-blue-300">Spending by Category</h3>
+            <ResponsiveContainer width="100%" height={300}>
+              <BarChart data={barData}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#444" />
+                <XAxis dataKey="name" stroke="#ccc" />
+                <YAxis stroke="#ccc" />
+                <Tooltip contentStyle={{ backgroundColor: "#1f2937", borderColor: "#3b82f6" }} />
+                <Legend />
+                <Bar dataKey="amount" fill="#3b82f6" />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
 
-        {/* Month Comparison Bar Chart */}
-        <div className="bg-gray-800 p-4 rounded-lg mb-8 shadow hover:shadow-lg hover:shadow-blue-500/50 transition">
-          <h3 className="text-lg font-semibold mb-4 text-blue-300">Spending Comparison (Month-over-Month)</h3>
-          <BarChart width={500} height={300} data={monthComparisonData}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#444" />
-            <XAxis dataKey="name" stroke="#ccc" />
-            <YAxis stroke="#ccc" />
-            <Tooltip contentStyle={{ backgroundColor: "#1f2937", borderColor: "#3b82f6" }} />
-            <Legend />
-            <Bar dataKey="amount" fill="#38bdf8" />
-          </BarChart>
+          {/* Month Comparison Bar Chart */}
+          <div className="flex-1 bg-gray-800 p-4 rounded-lg shadow hover:shadow-lg hover:shadow-blue-500/50 transition">
+            <h3 className="text-lg font-semibold mb-4 text-blue-300">Spending Comparison</h3>
+            <ResponsiveContainer width="100%" height={300}>
+              <BarChart data={monthComparisonData}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#444" />
+                <XAxis dataKey="name" stroke="#ccc" />
+                <YAxis stroke="#ccc" />
+                <Tooltip contentStyle={{ backgroundColor: "#1f2937", borderColor: "#3b82f6" }} />
+                <Legend />
+                <Bar dataKey="amount" fill="#38bdf8" />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
         </div>
 
         {/* Comparison message */}

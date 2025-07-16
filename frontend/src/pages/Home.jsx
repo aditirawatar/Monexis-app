@@ -1,7 +1,18 @@
 import { Link } from "react-router-dom";
+import { getAuth } from "firebase/auth";
+import { useEffect, useState } from "react";
 
 export default function Home() {
-  const isLoggedIn = false; // Replace with your actual auth state
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setIsLoggedIn(!!user);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   return (
     <div className="min-h-screen w-full bg-gray-900 text-gray-100 flex flex-col">
@@ -15,7 +26,7 @@ export default function Home() {
         {!isLoggedIn && (
           <Link
             to="/login"
-            className="px-4 py-2 bg-blue-200 text-blue-100 rounded-lg transition"
+            className="px-4 py-2 hover:shadow-lg hover:shadow-blue-500/50 text-blue-200 rounded transition"
           >
             Login
           </Link>
@@ -33,14 +44,14 @@ export default function Home() {
             {isLoggedIn ? (
               <Link
                 to="/dashboard"
-                className="px-6 py-3 bg-blue-200 text-white rounded-lg  transition"
+                className="px-6 py-3 bg-blue-600 text-blue-200 rounded-lg transition"
               >
                 Go to Dashboard
               </Link>
             ) : (
               <Link
                 to="/login"
-                className="px-6 py-3 bg-blue-200 text-white rounded-lg transition"
+                className="px-6 py-3 bg-blue-600 text-blue-200 rounded-lg transition"
               >
                 Get Started
               </Link>

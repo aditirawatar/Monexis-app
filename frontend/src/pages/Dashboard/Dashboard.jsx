@@ -1,10 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import PlaidLinkButton from "../../components/PlaidLinkButton";
 import Sidebar from "./SideBar";
 import DonutChart from "../../components/DonutChart";
 
 const Dashboard = () => {
   const [transactions, setTransactions] = useState([]);
+
+  // Fetch transactions on mount
+  useEffect(() => {
+    const fetchTxns = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/plaid/transactions");
+        setTransactions(response.data.transactions);
+      } catch (error) {
+        console.error("Failed to fetch transactions", error);
+      }
+    };
+    fetchTxns();
+  }, []);
 
   const income = transactions.filter((t) => t.amount < 0).reduce((sum, t) => sum + Math.abs(t.amount), 0);
   const expenses = transactions.filter((t) => t.amount > 0).reduce((sum, t) => sum + t.amount, 0);
@@ -13,11 +27,11 @@ const Dashboard = () => {
   const recentTxns = transactions.slice(0, 7);
 
   return (
-    <div className="flex bg-gray-900 text-gray-100 min-h-screen">
+    <div className="flex bg-gray-900  text-gray-100 min-h-screen">
       <Sidebar />
 
       <div className="flex-1 p-6">
-        <h2 className="text-3xl font-bold text-blue-300 mb-4">Dashboard</h2>
+        <h2 className="text-3xl font-bold mt-7 text-blue-300 mb-4">Dashboard</h2>
         <PlaidLinkButton onTransactionsFetched={setTransactions} />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-6">

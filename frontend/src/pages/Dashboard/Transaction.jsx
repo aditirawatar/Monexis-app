@@ -22,7 +22,7 @@ const Transaction = () => {
       <Sidebar />
 
       <div className="flex-1 p-6">
-        <h2 className="text-3xl font-bold text-blue-300 mb-4">All Transactions</h2>
+        <h2 className="text-3xl mt-7 font-bold text-blue-300 mb-4">All Transactions</h2>
 
         {transactions.length === 0 ? (
           <p className="text-gray-400">No transactions available. Please connect your bank first.</p>
