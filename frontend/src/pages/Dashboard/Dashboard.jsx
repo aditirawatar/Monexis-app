@@ -35,19 +35,20 @@ const Dashboard = () => {
         <PlaidLinkButton onTransactionsFetched={setTransactions} />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-6">
-          <div className="bg-green-600 p-4 rounded shadow text-white">
-            <h4 className="font-semibold">Income</h4>
-            <p>${income.toFixed(2)}</p>
-          </div>
-          <div className="bg-red-600 p-4 rounded shadow text-white">
-            <h4 className="font-semibold">Expenses</h4>
-            <p>${expenses.toFixed(2)}</p>
-          </div>
-          <div className="bg-blue-600 p-4 rounded shadow text-white">
-            <h4 className="font-semibold">Savings</h4>
-            <p>${savings.toFixed(2)}</p>
-          </div>
-        </div>
+  <div className="border border-green-500 p-4 rounded shadow text-green-400 bg-transparent">
+    <h4 className="font-semibold">Income</h4>
+    <p>${income.toFixed(2)}</p>
+  </div>
+  <div className="border border-red-500 p-4 rounded shadow text-red-400 bg-transparent">
+    <h4 className="font-semibold">Expenses</h4>
+    <p>${expenses.toFixed(2)}</p>
+  </div>
+  <div className="border border-blue-500 p-4 rounded shadow text-blue-400 bg-transparent">
+    <h4 className="font-semibold">Savings</h4>
+    <p>${savings.toFixed(2)}</p>
+  </div>
+</div>
+
 
         <div className="flex flex-col lg:flex-row gap-6 mt-8">
           {/* Donut Chart */}

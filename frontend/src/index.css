@@ -20,3 +20,92 @@ body {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+.glow-card {
+  --x: 50%;
+  --y: 50%;
+  position: relative;
+  background: #1f2937; /* gray-800 */
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+}
+
+.glow-card::before {
+  content: '';
+  position: absolute;
+  top: var(--y);
+  left: var(--x);
+  transform: translate(-50%, -50%);
+  width: 160px;
+  height: 160px;
+  background: radial-gradient(
+    circle at center,
+    rgba(59, 130, 246, 0.25),   /* blue-500 */
+    rgba(59, 130, 246, 0.05),
+    transparent
+  );
+  border-radius: 50%;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0; /* 🔹 Hidden by default */
+  transition: opacity 0.2s ease;
+}
+
+.glow-card:hover::before,
+.glow-card:active::before {
+  opacity: 1; /* 🔹 Only show glow when hovered/touched */
+}
+
+.glow-card:hover,
+.glow-card:active {
+  transform: scale(1.03);
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.2),
+    0 6px 20px rgba(59, 130, 246, 0.3),
+    inset 0 0 25px rgba(59, 130, 246, 0.2);
+}
+
+
+.glow-btn {
+  --x: 50%;
+  --y: 50%;
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+  background-color: transparent;
+  transition: all 0.3s ease;
+}
+
+.glow-btn::before {
+  content: '';
+  position: absolute;
+  top: var(--y);
+  left: var(--x);
+  transform: translate(-50%, -50%);
+  width: 160px;
+  height: 160px;
+  background: radial-gradient(
+    circle at center,
+    rgba(59, 130, 246, 0.3),
+    rgba(59, 130, 246, 0.05),
+    transparent
+  );
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+}
+
+.glow-btn:hover::before,
+.glow-btn:active::before {
+  opacity: 1;
+}
+
+.glow-btn:hover,
+.glow-btn:active {
+  box-shadow:
+    0 0 10px rgba(59, 130, 246, 0.4),
+    0 0 20px rgba(59, 130, 246, 0.3),
+    inset 0 0 15px rgba(59, 130, 246, 0.2);
+  transform: scale(1.03);
+}

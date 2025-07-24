@@ -65,11 +65,15 @@ const Sidebar = () => {
         <div className="flex-1"></div>
 
         <button
-          onClick={handleLogout}
-          className="p-2 rounded transition hover:bg-gray-800 hover:shadow-lg hover:shadow-red-500/50 border border-gray-600 text-red-400"
-        >
-          Logout
-        </button>
+  onClick={handleLogout}
+  className="relative group p-2 rounded border border-red-400 text-red-400 overflow-hidden z-10"
+>
+  <span className="relative z-10">Logout</span>
+  <span
+    className="absolute left-0 top-0 h-full w-0 bg-red-600 opacity-20 group-hover:w-full transition-all duration-500 ease-out z-0"
+  ></span>
+</button>
+
       </div>
     </>
   );
